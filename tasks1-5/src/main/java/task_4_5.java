@@ -1,7 +1,8 @@
-import javax.naming.InterruptedNamingException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class task_4_5 {
-    static class myThread extends Thread {
+    static class MyThread extends Thread {
         public void run() {
             while (!Thread.currentThread().isInterrupted())
                 System.out.println("output");
@@ -10,13 +11,15 @@ public class task_4_5 {
     }
 
     public static void main(String[] args) {
-        Thread a= new myThread();
+        Timer timer= new Timer();
+        MyThread a = new MyThread();
         a.start();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        a.interrupt();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                a.interrupt();
+                timer.cancel();
+            }
+        },2000);
     }
 }
