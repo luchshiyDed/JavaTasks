@@ -1,13 +1,11 @@
+import javax.naming.InterruptedNamingException;
+
 public class task_4_5 {
     static class myThread extends Thread {
         public void run() {
-            try {
-            while (1 == 1)
+            while (!Thread.currentThread().isInterrupted())
                 System.out.println("output");
-            } catch (ThreadDeath e) {
-                System.out.println("I'm ending");
-                return;
-            }
+            System.out.println("I'm ending");
         }
     }
 
@@ -19,6 +17,6 @@ public class task_4_5 {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        a.stop();
+        a.interrupt();
     }
 }
