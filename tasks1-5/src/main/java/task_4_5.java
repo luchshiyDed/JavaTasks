@@ -13,7 +13,12 @@ public class task_4_5 {
     public static void main(String[] args) {
         Timer timer= new Timer();
         MyThread a = new MyThread();
-        a.start();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                a.start();
+            }
+        },0);
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
