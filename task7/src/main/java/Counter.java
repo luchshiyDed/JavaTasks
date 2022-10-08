@@ -1,12 +1,16 @@
-import lombok.AllArgsConstructor;
+
 
 import java.util.concurrent.Callable;
-@AllArgsConstructor
+
 public class Counter implements Callable {
     private int threadCnt;
     private int iterationsCnt;
     private int threadNum; // from zero
-
+    public Counter(int threadCnt,int iterationsCnt,int threadNum){
+        this.threadCnt=threadCnt;
+        this.iterationsCnt=iterationsCnt;
+        this.threadNum=threadNum;
+    }
     @Override
     public Double call() throws Exception {
         int foldingNum = this.threadNum;
