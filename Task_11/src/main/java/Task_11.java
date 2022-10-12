@@ -1,7 +1,6 @@
 import java.util.concurrent.Semaphore;
 
 public class Task_11 {
-    static Boolean flag=Boolean.FALSE;
     static Semaphore sem1;
     static Semaphore sem2;
     static void output(String ot){
@@ -28,7 +27,6 @@ public class Task_11 {
         myTread a = new myTread();
         sem2.acquire();
         a.start();
-
         for (int i = 0; i < 10; i++) {
             sem1.acquire();
             output("Parent output #" + (i + 1));

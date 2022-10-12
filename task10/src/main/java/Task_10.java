@@ -1,24 +1,28 @@
 public class Task_10 {
-    static Boolean flag=Boolean.FALSE;
-    static void output(String ot){
+    static Boolean flag = Boolean.TRUE;
+
+    static void output(String ot) {
         System.out.println(ot);
     }
+
     static class myTread extends Thread {
         public void run() {
             for (int i = 0; i < 10; i++) {
-                while (!flag) {
-                    try {
-                        Thread.currentThread().sleep(10);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                output("Child output #" + (i + 1));
+                synchronized (Task_10.class) {
+                    flag = !flag;
+                    Task_10.class.notify();
+                    while (!flag) {
+                        try {
+                            Task_10.class.wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
+                    if(i==9)return;
                 }
-               output("Child output #" + (i + 1));
-                synchronized (flag){
-                    flag=!flag;
-                }
-
             }
+
         }
     }
 
@@ -27,19 +31,21 @@ public class Task_10 {
         a.start();
 
         for (int i = 0; i < 10; i++) {
-            while (flag) {
-                try {
-                    Thread.currentThread().sleep(10);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            output("Parent output #" + (i + 1));
+            synchronized (Task_10.class) {
+                flag = !flag;
+                Task_10.class.notify();
+                if (i==9)return;
+                while (flag) {
+                    try {
+                        Task_10.class.wait();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
-            output("Parent output #" + (i + 1));
-            synchronized (flag){
-                flag=!flag;
 
-            }
 
+        }
     }
-}
 }
