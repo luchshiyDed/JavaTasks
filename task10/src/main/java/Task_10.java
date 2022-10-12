@@ -1,5 +1,8 @@
 public class Task_10 {
     static Boolean flag=Boolean.FALSE;
+    static void output(String ot){
+        System.out.println(ot);
+    }
     static class myTread extends Thread {
         public void run() {
             for (int i = 0; i < 10; i++) {
@@ -10,7 +13,7 @@ public class Task_10 {
                         e.printStackTrace();
                     }
                 }
-                System.out.println("Child output #" + (i + 1));
+               output("Child output #" + (i + 1));
                 synchronized (flag){
                     flag=!flag;
                 }
@@ -31,8 +34,7 @@ public class Task_10 {
                     e.printStackTrace();
                 }
             }
-            System.out.println("Parent output #" + (i + 1));
-
+            output("Parent output #" + (i + 1));
             synchronized (flag){
                 flag=!flag;
 
