@@ -1,5 +1,5 @@
 public class Task_10 {
-    static Boolean flag = Boolean.TRUE;
+    static Boolean flag = Boolean.FALSE;
 
     static void output(String ot) {
         System.out.println(ot);
@@ -12,6 +12,7 @@ public class Task_10 {
                 synchronized (Task_10.class) {
                     flag = !flag;
                     Task_10.class.notify();
+                    if (i==9)return;
                     while (!flag) {
                         try {
                             Task_10.class.wait();
@@ -19,7 +20,6 @@ public class Task_10 {
                             e.printStackTrace();
                         }
                     }
-                    if(i==9)return;
                 }
             }
 
@@ -35,7 +35,6 @@ public class Task_10 {
             synchronized (Task_10.class) {
                 flag = !flag;
                 Task_10.class.notify();
-                if (i==9)return;
                 while (flag) {
                     try {
                         Task_10.class.wait();
@@ -44,8 +43,6 @@ public class Task_10 {
                     }
                 }
             }
-
-
         }
     }
 }
