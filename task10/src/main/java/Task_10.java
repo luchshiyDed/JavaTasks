@@ -38,7 +38,6 @@ public class Task_10 {
     public static void main(String[] args) throws InterruptedException {
         myTread a = new myTread();
         a.start();
-        Thread.sleep(100);
         for (int i = 0; i < 10; i++) {
             output("Parent output #" + (i + 1));
             synchronized (Task_10.class) {
