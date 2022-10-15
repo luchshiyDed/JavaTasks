@@ -7,6 +7,15 @@ public class Task_10 {
 
     static class myTread extends Thread {
         public void run() {
+            synchronized (Task_10.class) {
+                while (!flag) {
+                    try {
+                        Task_10.class.wait();
+                    } catch (InterruptedException e){
+                        e.printStackTrace();
+                    }
+                }
+            }
             for (int i = 0; i < 10; i++) {
                 output("Child output #" + (i + 1));
                 synchronized (Task_10.class) {
@@ -16,7 +25,7 @@ public class Task_10 {
                     while (!flag) {
                         try {
                             Task_10.class.wait();
-                        } catch (InterruptedException e) {
+                        } catch (InterruptedException e){
                             e.printStackTrace();
                         }
                     }
@@ -29,7 +38,7 @@ public class Task_10 {
     public static void main(String[] args) throws InterruptedException {
         myTread a = new myTread();
         a.start();
-
+        Thread.sleep(100);
         for (int i = 0; i < 10; i++) {
             output("Parent output #" + (i + 1));
             synchronized (Task_10.class) {
