@@ -18,14 +18,14 @@ public class Task_10 {
             }
             for (int i = 0; i < 10; i++) {
                 output("Child output #" + (i + 1));
-                synchronized (Task_10.class) {
+                synchronized (Task_10.class){
                     flag = !flag;
                     Task_10.class.notify();
                     if (i==9)return;
-                    while (!flag) {
+                    while (!flag){
                         try {
                             Task_10.class.wait();
-                        } catch (InterruptedException e){
+                        }catch (InterruptedException e){
                             e.printStackTrace();
                         }
                     }

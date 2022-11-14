@@ -5,9 +5,11 @@ public class Main {
     public static void main(String[] args){
         Sorter s= new Sorter();
         Scanner scanner= new Scanner(System.in);
-        while(true){
-            String input=scanner.nextLine();
+        String input=scanner.nextLine();
+        while(input.){
+
             s.add(input);
+            input=scanner.nextLine();
         }
     }
 }
