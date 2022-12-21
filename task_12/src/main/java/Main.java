@@ -1,15 +1,21 @@
-import java.io.InputStream;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args){
-        Sorter s= new Sorter();
-        Scanner scanner= new Scanner(System.in);
-        String input=scanner.nextLine();
-        while(input.){
+    public static void main(String[] args) {
 
-            s.add(input);
-            input=scanner.nextLine();
+        Scanner input = new Scanner(System.in);
+
+        MyList list = new MyList();
+        Thread thread = new Thread(new SortThread(list));
+        thread.start();
+
+        while (true){
+            String str = input.nextLine();
+            if (str.equals(""))
+                list.print();
+            else {
+                list.push(str);
+            }
         }
     }
 }
