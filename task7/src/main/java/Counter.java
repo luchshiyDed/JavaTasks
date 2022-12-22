@@ -2,7 +2,7 @@
 
 import java.util.concurrent.Callable;
 
-public class Counter implements Callable {
+public class Counter implements Callable<Double> {
     private int threadCnt;
     private int iterationsCnt;
     private int threadNum; // from zero

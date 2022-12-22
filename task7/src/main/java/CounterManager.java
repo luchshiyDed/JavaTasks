@@ -9,7 +9,7 @@ import java.util.concurrent.Future;
 public class CounterManager {
     private int threadCnt;
     private int iterationsCnt;
-    public CounterManager(int iterationsCnt,int threadCnt){
+    public CounterManager(int threadCnt,int iterationsCnt){
         this.threadCnt=threadCnt;
         this.iterationsCnt=iterationsCnt;
     }
