@@ -43,8 +43,6 @@ public class MyList {
 
     public synchronized void push(String value) {
         Node node = new Node(value, head);
-        if (this.head == null) this.head = node;
-
         this.head = node;
         len++;
     }
