@@ -8,15 +8,18 @@ public class MyList {
             this.value = value;
             this.next = next;
         }
-        public String getValue(){
+
+        public String getValue() {
             return this.value;
         }
+
         public Node getNext() {
             return this.next;
         }
-        public String replaceValue(String newValue){
+
+        public String replaceValue(String newValue) {
             String replacedValue = this.value;
-            this.value=newValue;
+            this.value = newValue;
             return replacedValue;
         }
     }
@@ -38,39 +41,34 @@ public class MyList {
         this.len = 0;
     }
 
-    public void push(String value) {
+    public synchronized void push(String value) {
         Node node = new Node(value, head);
-        if(this.head==null)this.head = node;
-        synchronized (this.head) {
-            this.head = node;
-        }
+        if (this.head == null) this.head = node;
+
+        this.head = node;
         len++;
     }
 
-    public void print() {
+    public synchronized void print() {
         Node tmp;
-        if(this.head==null)return;
-        synchronized (this.head) {
-            tmp = this.head;
-            while (tmp != null) {
-                System.out.println(tmp.getValue());
-                tmp = tmp.getNext();
-            }
+        if (this.head == null) return;
+        tmp = this.head;
+        while (tmp != null) {
+            System.out.println(tmp.getValue());
+            tmp = tmp.getNext();
         }
+
     }
 
-    public void bubblesort() {
-        if (this.head == null)return;
-        synchronized (this.head) {
-            for (int i = this.len - 1; i > 0; i--) {
-                Node tmp = this.head;
-                for (int j = 0; j < i; j++) {
-                    if (tmp.getValue().compareTo(tmp.getNext().getValue()) > 0) {
-                        tmp.getNext().replaceValue(tmp.replaceValue(tmp.getNext().getValue()));
-                    }
-                    tmp = tmp.getNext();
+    public synchronized void bubblesort() {
+        if (this.head == null) return;
+        for (int i = 0; i + 1 < this.len; i++) {
+            Node tmp = this.head;
+            for (int j = 0; j + 1 < this.len - i; j++) {
+                if (tmp.getValue().compareTo(tmp.getNext().getValue()) > 0) {
+                    tmp.getNext().replaceValue(tmp.replaceValue(tmp.getNext().getValue()));
                 }
-
+                tmp = tmp.getNext();
             }
         }
     }
