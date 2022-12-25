@@ -18,7 +18,7 @@ public class Main {
         CounterManager counterManager=new CounterManager(threadCnt);
         Thread endThread=new Thread(()->{
             try {
-                System.out.println(counterManager.getRes());
+                System.out.println(counterManager.getRes()-Math.PI/4);
             } catch (ExecutionException e) {
                 e.printStackTrace();
             } catch (InterruptedException e) {

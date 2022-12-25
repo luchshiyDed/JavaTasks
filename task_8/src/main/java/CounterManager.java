@@ -27,14 +27,17 @@ public class CounterManager {
                 foldingNum+=this.threadCnt;
                 //System.out.println(threadNum+ " " + this.iterationsCnt);
             }
-            max_iterations_Cnt.set(Math.max(max_iterations_Cnt.get(), this.iterationsCnt));
+            synchronized (max_iterations_Cnt) {
+                if (max_iterations_Cnt.get() < this.iterationsCnt)
+                    max_iterations_Cnt.set(this.iterationsCnt);
+            }
             barrier.await();
-
-            for(long i=this.iterationsCnt;i<=max_iterations_Cnt.get();i++){
+            while (this.iterationsCnt<max_iterations_Cnt.get()){
                 res+=(foldingNum%2==0?1:-1)*(1/((double)foldingNum*2+1));
                 foldingNum+=this.threadCnt;
+                this.iterationsCnt++;
             }
-            System.out.println(threadNum + "- ended calc " );
+            System.out.println(threadNum + "- ended calc " + (this.iterationsCnt== max_iterations_Cnt.get()));
             return res;
         }
     }
