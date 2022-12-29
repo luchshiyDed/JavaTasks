@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         XmlParser xmlParser = new XmlParser();
         List<Person> persons = xmlParser.parseXMLfile("people.xml");
-        persons = combinate(persons);
+        persons = relationsSet(persons);
 
         List<Person> incorrectPeople = persons.stream().filter(p ->
                 p.isIncorrect(person_id_map)).toList();
@@ -40,7 +40,7 @@ public class Main {
         }
     }
 
-    private static List<Person> combinate(List<Person> people) {
+    private static List<Person> relationsSet(List<Person> people) {
         for (final Person person : people) {
             final String id = person.getId();
             //storing info with no id persons by their names
@@ -95,12 +95,12 @@ public class Main {
                 }
             }
 
-            Set<Person> cildAdd = new HashSet<>();
+            Set<Person> childAdd = new HashSet<>();
             for (final Person child : person.getChilds()) {
-                inverseRel(cildAdd, child);
+                inverseRel(childAdd, child);
             }
             person.getChilds().clear();
-            cildAdd.forEach(person::addChild);
+            childAdd.forEach(person::addChild);
 
             Set<Person> sibAdd = new HashSet<>();
             for (final Person sibling : person.getSibs())
