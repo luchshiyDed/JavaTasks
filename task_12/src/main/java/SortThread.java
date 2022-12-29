@@ -3,7 +3,6 @@ public class SortThread implements Runnable{
     public SortThread(MyList myList){
         this.myList = myList;
     }
-
     @Override
     public void run(){
         while (true){

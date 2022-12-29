@@ -8,8 +8,7 @@ public class Main {
         MyList list = new MyList();
         Thread thread = new Thread(new SortThread(list));
         thread.start();
-
-        while (true){
+        while(true){
             String str = input.nextLine();
             if (str.equals(""))
                 list.print();
